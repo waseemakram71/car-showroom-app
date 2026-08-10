@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { --background: 222 24% 8%; --foreground: 40 20% 95%; --card: 222 22% 12%; --card-foreground: 40 20% 95%; --primary: 35 98% 57%; --primary-foreground: 222 24% 8%; --secondary: 220 17% 18%; --secondary-foreground: 40 20% 95%; --muted: 220 17% 18%; --muted-foreground: 218 12% 66%; --accent: 35 98% 57%; --accent-foreground: 222 24% 8%; --border: 220 14% 22%; --input: 220 14% 22%; --ring: 35 98% 57%; --radius: .75rem; }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; margin: 0; }
+}
+@layer components {
+  .font-display { font-family: 'Barlow Condensed', sans-serif; }
+  .container { @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[.25em] text-primary; }
+  .section-title { @apply mt-3 font-display text-4xl font-bold leading-none tracking-tight sm:text-5xl; }
+  .field { @apply w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary; }
+}
