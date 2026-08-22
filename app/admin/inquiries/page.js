@@ -1,0 +1,56 @@
+import prisma from '@/lib/prisma'
+
+export default async function AdminInquiriesPage() {
+  const inquiries = await prisma.inquiry.findMany({
+    orderBy: { createdAt: 'desc' }
+  })
+
+  return (
+    <div>
+      <h1 className="font-display text-3xl font-bold mb-8">Inquiries & Bookings</h1>
+
+      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-muted/50 text-muted-foreground">
+            <tr>
+              <th className="px-6 py-4 font-medium">Date</th>
+              <th className="px-6 py-4 font-medium">Type</th>
+              <th className="px-6 py-4 font-medium">Contact Info</th>
+              <th className="px-6 py-4 font-medium">Details</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {inquiries.map(inquiry => (
+              <tr key={inquiry.id} className="hover:bg-muted/20">
+                <td className="px-6 py-4 whitespace-nowrap text-muted-foreground">
+                  {inquiry.createdAt.toLocaleDateString()}
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium uppercase tracking-wider ${inquiry.type === 'contact' ? 'bg-blue-500/10 text-blue-500' : 'bg-primary/10 text-primary'}`}>
+                    {inquiry.type.replace('-', ' ')}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="font-medium text-foreground">{inquiry.name}</div>
+                  <div className="text-muted-foreground text-xs mt-1">{inquiry.phone}</div>
+                  {inquiry.email && <div className="text-muted-foreground text-xs">{inquiry.email}</div>}
+                </td>
+                <td className="px-6 py-4 max-w-xs">
+                  {inquiry.carModel && <div className="text-xs font-bold text-foreground mb-1">Model: {inquiry.carModel}</div>}
+                  {inquiry.subject && <div className="text-xs font-bold text-foreground mb-1">Subject: {inquiry.subject}</div>}
+                  {inquiry.dateNeeded && <div className="text-xs font-bold text-foreground mb-1">Date: {inquiry.dateNeeded}</div>}
+                  <div className="text-muted-foreground truncate">{inquiry.message}</div>
+                </td>
+              </tr>
+            ))}
+            {inquiries.length === 0 && (
+              <tr>
+                <td colSpan="4" className="px-6 py-8 text-center text-muted-foreground">No inquiries found.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
