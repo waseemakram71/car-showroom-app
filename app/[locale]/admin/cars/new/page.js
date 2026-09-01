@@ -68,68 +68,72 @@ export default function NewCarPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto text-[#091C29]">
       <div className="mb-8">
-        <Link href="/admin/cars" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4">
+        <Link href="/admin/cars" className="inline-flex items-center gap-2 text-sm text-[#63717C] hover:text-[#071D2B] mb-4 transition">
           <ArrowLeft className="h-4 w-4" /> Back to Inventory
         </Link>
-        <h1 className="font-display text-3xl font-bold">Add New Car</h1>
+        <h1 className="font-display text-3xl font-bold text-[#071D2B]">Add New Car</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-card p-8 rounded-2xl border border-border">
-        {error && <div className="p-4 bg-red-500/10 text-red-500 rounded-lg">{error}</div>}
+      <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-3xl" style={{ background: '#071D2B', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 24px rgba(7,29,43,0.12)' }}>
+        {error && <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold border border-red-100">{error}</div>}
         
         <div className="grid gap-6 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium mb-2">Car Name</label>
-            <input required name="name" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="e.g. Honda Civic Oriel" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Car Name</label>
+            <input required name="name" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="e.g. Honda Civic Oriel" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Brand</label>
-            <input required name="brand" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="e.g. Honda" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Brand</label>
+            <input required name="brand" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="e.g. Honda" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Year</label>
-            <input required type="number" name="year" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="2022" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Year</label>
+            <input required type="number" name="year" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="2022" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Price</label>
-            <input required name="price" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="PKR 6,890,000" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Price</label>
+            <input required name="price" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="PKR 6,890,000" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Mileage</label>
-            <input required name="mileage" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="42,500 km" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Mileage</label>
+            <input required name="mileage" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="42,500 km" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Fuel Type</label>
-            <input required name="fuelType" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="Petrol" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Fuel Type</label>
+            <input required name="fuelType" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Petrol" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Transmission</label>
-            <input required name="transmission" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="Automatic / CVT" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Transmission</label>
+            <input required name="transmission" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Automatic / CVT" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Body Type</label>
-            <input required name="bodyType" className="w-full rounded-lg border border-input bg-background px-4 py-3" placeholder="Sedan / SUV" />
+            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Body Type</label>
+            <input required name="bodyType" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Sedan / SUV" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Description</label>
-          <textarea required name="description" rows={4} className="w-full rounded-lg border border-input bg-background px-4 py-3"></textarea>
+          <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Description</label>
+          <textarea required name="description" rows={4} className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }}></textarea>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Cover Image</label>
-          <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} className="w-full rounded-lg border border-input bg-background px-4 py-3" />
+          <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Cover Image</label>
+          <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:border-white focus:ring-1 focus:ring-white cursor-pointer" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} />
         </div>
 
-        <div className="flex items-center gap-2">
-          <input type="checkbox" name="featured" id="featured" className="h-4 w-4" />
-          <label htmlFor="featured" className="text-sm font-medium">Feature on Homepage</label>
+        <div className="flex items-center gap-3 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <input type="checkbox" name="featured" id="featured" className="h-5 w-5 rounded border-gray-300 text-[#071D2B] focus:ring-white" />
+          <label htmlFor="featured" className="text-sm font-bold cursor-pointer text-[#F7F8F8]">Feature on Homepage</label>
         </div>
 
-        <button disabled={loading} type="submit" className="w-full rounded-lg bg-primary px-4 py-3 font-bold text-primary-foreground hover:opacity-90 disabled:opacity-50">
+        <button disabled={loading} type="submit" className="w-full rounded-xl px-4 py-4 font-bold transition disabled:opacity-50"
+          style={{ background: '#FFFFFF', color: '#071D2B' }}
+          onMouseEnter={e => e.currentTarget.style.background = '#F1F4F6'}
+          onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
+        >
           {loading ? 'Saving...' : 'Save Car'}
         </button>
       </form>

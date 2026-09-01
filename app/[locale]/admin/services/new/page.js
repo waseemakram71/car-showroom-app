@@ -45,53 +45,56 @@ export default function NewServicePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto text-[#091C29]">
       <div className="flex items-center gap-4 mb-8">
-        <Link href={`/${locale}/admin/services`} className="p-2 rounded-full hover:bg-muted/50 transition">
-          <ArrowLeft className="h-5 w-5" />
+        <Link href={`/${locale}/admin/services`} className="inline-flex items-center gap-2 text-sm text-[#63717C] hover:text-[#071D2B] mb-4 transition">
+          <ArrowLeft className="h-4 w-4" /> Back to Services
         </Link>
-        <h1 className="font-display text-3xl font-bold">Add New Service</h1>
       </div>
+      <h1 className="font-display text-3xl font-bold mb-8 text-[#071D2B]">Add New Service</h1>
 
-      <div className="bg-card border border-border rounded-2xl p-6">
+      <div className="p-8 rounded-3xl" style={{ background: '#071D2B', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 24px rgba(7,29,43,0.12)' }}>
         {error && (
-          <div className="bg-red-500/10 text-red-500 p-4 rounded-lg mb-6 text-sm font-medium">
+          <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold border border-red-100 mb-6">
             {error}
           </div>
         )}
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium mb-2">Service Title *</label>
+            <label htmlFor="title" className="block text-sm font-bold mb-2 text-[#F7F8F8]">Service Title *</label>
             <input 
               type="text" 
               id="title" 
               name="title" 
               required 
-              className="w-full bg-background border border-border rounded-lg px-4 py-3 outline-none focus:border-primary transition"
+              className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white"
+              style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }}
               placeholder="e.g. Engine Diagnostics"
             />
           </div>
 
           <div>
-            <label htmlFor="icon" className="block text-sm font-medium mb-2">Icon (Optional)</label>
+            <label htmlFor="icon" className="block text-sm font-bold mb-2 text-[#F7F8F8]">Icon (Optional)</label>
             <input 
               type="text" 
               id="icon" 
               name="icon" 
-              className="w-full bg-background border border-border rounded-lg px-4 py-3 outline-none focus:border-primary transition"
+              className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white"
+              style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }}
               placeholder="e.g. Wrench"
             />
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-sm font-medium mb-2">Description *</label>
+            <label htmlFor="description" className="block text-sm font-bold mb-2 text-[#F7F8F8]">Description *</label>
             <textarea 
               id="description" 
               name="description" 
               required 
               rows="5"
-              className="w-full bg-background border border-border rounded-lg px-4 py-3 outline-none focus:border-primary transition resize-none"
+              className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white resize-none"
+              style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }}
               placeholder="Describe the service..."
             ></textarea>
           </div>
@@ -100,7 +103,10 @@ export default function NewServicePage() {
             <button 
               type="submit" 
               disabled={loading}
-              className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-bold transition hover:opacity-90 disabled:opacity-50"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition disabled:opacity-50"
+              style={{ background: '#FFFFFF', color: '#071D2B' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#F1F4F6'}
+              onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
             >
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
               Save Service

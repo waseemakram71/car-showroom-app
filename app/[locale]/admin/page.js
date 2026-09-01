@@ -14,59 +14,50 @@ export default async function AdminDashboard({ params }) {
     prisma.inquiry.count({
       where: {
         createdAt: {
-          gte: new Date(new Date().setDate(new Date().getDate() - 7)) // last 7 days
+          gte: new Date(new Date().setDate(new Date().getDate() - 7))
         }
       }
     }),
   ])
 
+  const cards = [
+    { icon: Car, label: t('inventory'), value: availableCars, sub: t('availableCars'), href: `/${locale}/admin/cars`, action: t('manage') },
+    { icon: Wrench, label: t('services'), value: totalServices, sub: t('totalServices'), href: `/${locale}/admin/services`, action: t('manage') },
+    { icon: MessageSquare, label: t('inquiries'), value: newInquiries, sub: t('last7Days'), href: `/${locale}/admin/inquiries`, action: t('viewAll') },
+  ]
+
   return (
     <div>
-      <h1 className="font-display text-3xl font-bold mb-8">{t('overview')}</h1>
+      <h1 className="font-display text-3xl font-bold mb-8" style={{ color: '#091C29' }}>
+        {t('overview')}
+      </h1>
       <div className="grid gap-6 md:grid-cols-3">
-        
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <div className="flex items-center gap-4 text-primary">
-            <Car className="h-8 w-8" />
-            <h2 className="text-xl font-bold">{t('inventory')}</h2>
-          </div>
-          <div className="mt-4 flex justify-between items-end">
-            <div>
-              <p className="text-3xl font-black">{availableCars}</p>
-              <p className="text-sm text-muted-foreground">{t('availableCars')}</p>
+        {cards.map(({ icon: Icon, label, value, sub, href, action }) => (
+          <div
+            key={label}
+            className="rounded-2xl p-6 transition border border-white/10 hover:border-white/30 shadow-lg group"
+            style={{ background: '#071D2B' }}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="rounded-xl p-2 bg-white/10">
+                <Icon className="h-5 w-5 text-white" />
+              </div>
+              <h2 className="text-base font-bold text-white">{label}</h2>
             </div>
-            <Link href={`/${locale}/admin/cars`} className="text-sm font-bold text-primary hover:underline">{t('manage')}</Link>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <div className="flex items-center gap-4 text-primary">
-            <Wrench className="h-8 w-8" />
-            <h2 className="text-xl font-bold">{t('services')}</h2>
-          </div>
-          <div className="mt-4 flex justify-between items-end">
-            <div>
-              <p className="text-3xl font-black">{totalServices}</p>
-              <p className="text-sm text-muted-foreground">{t('totalServices')}</p>
+            <div className="flex justify-between items-end">
+              <div>
+                <p className="text-4xl font-black text-white">{value}</p>
+                <p className="text-sm mt-1 text-[#B8C3CA]">{sub}</p>
+              </div>
+              <Link
+                href={href}
+                className="text-sm font-bold transition text-[#B8C3CA] hover:text-white"
+              >
+                {action} →
+              </Link>
             </div>
-            <Link href={`/${locale}/admin/services`} className="text-sm font-bold text-primary hover:underline">{t('manage')}</Link>
           </div>
-        </div>
-
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <div className="flex items-center gap-4 text-primary">
-            <MessageSquare className="h-8 w-8" />
-            <h2 className="text-xl font-bold">{t('inquiries')}</h2>
-          </div>
-          <div className="mt-4 flex justify-between items-end">
-            <div>
-              <p className="text-3xl font-black">{newInquiries}</p>
-              <p className="text-sm text-muted-foreground">{t('last7Days')}</p>
-            </div>
-            <Link href={`/${locale}/admin/inquiries`} className="text-sm font-bold text-primary hover:underline">{t('viewAll')}</Link>
-          </div>
-        </div>
-
+        ))}
       </div>
     </div>
   )

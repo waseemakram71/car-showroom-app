@@ -40,14 +40,12 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params
-    // Soft delete: set status to 'sold'
-    const updatedCar = await prisma.car.update({
-      where: { id },
-      data: { status: 'sold' }
+    await prisma.car.delete({
+      where: { id }
     })
     
-    return NextResponse.json({ message: 'Car marked as sold', car: updatedCar })
+    return NextResponse.json({ message: 'Car deleted successfully' })
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete/mark sold' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to delete car' }, { status: 500 })
   }
 }

@@ -5,39 +5,45 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 24% 8%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 24% 8%;
-    --primary: 35 98% 57%;
-    --primary-foreground: 222 24% 8%;
-    --secondary: 220 17% 95%;
-    --secondary-foreground: 222 24% 8%;
-    --muted: 220 17% 95%;
-    --muted-foreground: 220 8% 46%;
-    --accent: 35 98% 57%;
-    --accent-foreground: 222 24% 8%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 35 98% 57%;
+    /* Warm White light theme */
+    --background: 40 20% 97%;          /* #F8F7F4 */
+    --foreground: 207 62% 10%;         /* #091C29 */
+    --card: 0 0% 100%;                 /* #FFFFFF */
+    --card-foreground: 207 62% 10%;    /* #091C29 */
+    --primary: 207 74% 10%;            /* #071D2B - Midnight Navy */
+    --primary-foreground: 40 20% 97%;  /* #F7F8F8 */
+    --secondary: 200 14% 95%;          /* #F1F4F6 */
+    --secondary-foreground: 207 62% 10%;
+    --muted: 200 14% 95%;              /* #F1F4F6 */
+    --muted-foreground: 205 11% 43%;   /* #63717C */
+    --accent: 207 74% 10%;             /* #071D2B - Navy accent */
+    --accent-foreground: 40 20% 97%;
+    --border: 205 18% 87%;             /* #DCE2E6 */
+    --input: 205 18% 87%;
+    --ring: 207 74% 10%;
     --radius: .75rem;
+    --color-chat: #0D4B48;
+    --color-primary: #071D2B;
+    --color-primary-hover: #0D2D40;
+    --color-secondary-dark: #142B3A;
   }
   .dark {
-    --background: 222 24% 8%;
-    --foreground: 40 20% 95%;
-    --card: 222 22% 12%;
-    --card-foreground: 40 20% 95%;
-    --primary: 35 98% 57%;
-    --primary-foreground: 222 24% 8%;
-    --secondary: 220 17% 18%;
-    --secondary-foreground: 40 20% 95%;
-    --muted: 220 17% 18%;
-    --muted-foreground: 218 12% 66%;
-    --accent: 35 98% 57%;
-    --accent-foreground: 222 24% 8%;
-    --border: 220 14% 22%;
-    --input: 220 14% 22%;
-    --ring: 35 98% 57%;
+    /* Midnight Navy dark theme */
+    --background: 207 74% 10%;         /* #071D2B */
+    --foreground: 200 11% 97%;         /* #F7F8F8 */
+    --card: 207 67% 15%;               /* #0D2D40 */
+    --card-foreground: 200 11% 97%;
+    --primary: 207 74% 25%;            /* #0D2D40 lighter navy */
+    --primary-foreground: 200 11% 97%;
+    --secondary: 207 62% 16%;          /* #142B3A */
+    --secondary-foreground: 200 11% 97%;
+    --muted: 207 62% 16%;
+    --muted-foreground: 205 14% 70%;   /* #B8C3CA */
+    --accent: 207 67% 20%;
+    --accent-foreground: 200 11% 97%;
+    --border: 207 40% 20%;
+    --input: 207 40% 20%;
+    --ring: 207 74% 25%;
   }
   * { @apply border-border; }
   html { scroll-behavior: smooth; }
@@ -46,7 +52,19 @@
 @layer components {
   .font-display { font-family: 'Barlow Condensed', sans-serif; }
   .container { @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8; }
-  .eyebrow { @apply text-xs font-bold uppercase tracking-[.25em] text-primary; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[.25em]; color: #071D2B; }
   .section-title { @apply mt-3 font-display text-4xl font-bold leading-none tracking-tight sm:text-5xl; }
-  .field { @apply w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary; }
+  .field { @apply w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C]; border-color: #DCE2E6; color: #091C29; }
+  .field:focus { border-color: #071D2B; box-shadow: 0 0 0 3px rgba(7, 29, 43, 0.12); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.group:hover .animate-marquee {
+  animation-play-state: paused;
 }

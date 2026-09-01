@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import { Plus, Pencil, Trash } from 'lucide-react'
+import { DeleteCarButton } from '@/components/DeleteCarButton'
 
 export default async function AdminCarsPage() {
   const cars = await prisma.car.findMany({
@@ -10,45 +11,48 @@ export default async function AdminCarsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="font-display text-3xl font-bold">Manage Inventory</h1>
-        <Link href="/admin/cars/new" className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition hover:opacity-90">
+        <h1 className="font-display text-3xl font-bold" style={{ color: '#091C29' }}>Manage Inventory</h1>
+        <Link href="/admin/cars/new" className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition"
+          style={{ background: '#071D2B', color: '#FFFFFF' }}
+        >
           <Plus className="h-4 w-4" /> Add Car
         </Link>
       </div>
 
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #DCE2E6', boxShadow: '0 4px 12px rgba(7,29,43,0.06)' }}>
         <table className="w-full text-left text-sm">
-          <thead className="bg-muted/50 text-muted-foreground">
+          <thead style={{ background: '#071D2B', color: '#FFFFFF' }}>
             <tr>
-              <th className="px-6 py-4 font-medium">Car</th>
-              <th className="px-6 py-4 font-medium">Price</th>
-              <th className="px-6 py-4 font-medium">Status</th>
-              <th className="px-6 py-4 font-medium text-right">Actions</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Car</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Price</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Status</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
+          <tbody>
             {cars.map(car => (
-              <tr key={car.id} className="hover:bg-muted/20">
+              <tr key={car.id} className="transition" style={{ borderBottom: '1px solid #DCE2E6' }}>
                 <td className="px-6 py-4">
-                  <div className="font-medium text-foreground">{car.name}</div>
-                  <div className="text-muted-foreground text-xs">{car.year} • {car.mileage}</div>
+                  <div className="font-bold text-base" style={{ color: '#091C29' }}>{car.name}</div>
+                  <div className="text-xs mt-1" style={{ color: '#63717C' }}>{car.year} • {car.mileage}</div>
                 </td>
-                <td className="px-6 py-4">{car.price}</td>
+                <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>{car.price}</td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${car.status === 'available' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${car.status === 'available' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
                     {car.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-right">
-                  <Link href={`/admin/cars/${car.id}`} className="inline-flex p-2 text-muted-foreground hover:text-primary transition">
+                <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                  <Link href={`/admin/cars/${car.id}`} className="inline-flex p-2 rounded-lg transition hover:bg-[rgba(7,29,43,0.05)]" style={{ color: '#63717C' }} title="Edit car">
                     <Pencil className="h-4 w-4" />
                   </Link>
+                  <DeleteCarButton carId={car.id} />
                 </td>
               </tr>
             ))}
             {cars.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-6 py-8 text-center text-muted-foreground">No cars in inventory.</td>
+                <td colSpan="4" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No cars in inventory.</td>
               </tr>
             )}
           </tbody>
