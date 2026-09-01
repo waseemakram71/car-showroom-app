@@ -4,7 +4,41 @@
 @tailwind utilities;
 
 @layer base {
-  :root { --background: 222 24% 8%; --foreground: 40 20% 95%; --card: 222 22% 12%; --card-foreground: 40 20% 95%; --primary: 35 98% 57%; --primary-foreground: 222 24% 8%; --secondary: 220 17% 18%; --secondary-foreground: 40 20% 95%; --muted: 220 17% 18%; --muted-foreground: 218 12% 66%; --accent: 35 98% 57%; --accent-foreground: 222 24% 8%; --border: 220 14% 22%; --input: 220 14% 22%; --ring: 35 98% 57%; --radius: .75rem; }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 24% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 24% 8%;
+    --primary: 35 98% 57%;
+    --primary-foreground: 222 24% 8%;
+    --secondary: 220 17% 95%;
+    --secondary-foreground: 222 24% 8%;
+    --muted: 220 17% 95%;
+    --muted-foreground: 220 8% 46%;
+    --accent: 35 98% 57%;
+    --accent-foreground: 222 24% 8%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 35 98% 57%;
+    --radius: .75rem;
+  }
+  .dark {
+    --background: 222 24% 8%;
+    --foreground: 40 20% 95%;
+    --card: 222 22% 12%;
+    --card-foreground: 40 20% 95%;
+    --primary: 35 98% 57%;
+    --primary-foreground: 222 24% 8%;
+    --secondary: 220 17% 18%;
+    --secondary-foreground: 40 20% 95%;
+    --muted: 220 17% 18%;
+    --muted-foreground: 218 12% 66%;
+    --accent: 35 98% 57%;
+    --accent-foreground: 222 24% 8%;
+    --border: 220 14% 22%;
+    --input: 220 14% 22%;
+    --ring: 35 98% 57%;
+  }
   * { @apply border-border; }
   html { scroll-behavior: smooth; }
   body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; margin: 0; }

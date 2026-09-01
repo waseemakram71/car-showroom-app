@@ -1,0 +1,187 @@
+{
+  "Nav": {
+    "inventory": "Inventory",
+    "services": "Services",
+    "about": "About us",
+    "contact": "Contact",
+    "admin": "Admin Panel",
+    "bookVisit": "Book a visit",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "explore": "Explore",
+    "visitUs": "Visit us",
+    "openingHours": "Opening hours",
+    "getDirections": "Get directions",
+    "viewDetails": "View details",
+    "chat": "Chat with us"
+  },
+  "Footer": {
+    "description": "Fair-price car dealing and honest workshop service, all under one roof.",
+    "monSat": "Mon — Sat: 9:00 AM — 8:00 PM",
+    "sunday": "Sunday: 11:00 AM — 5:00 PM",
+    "copyright": "© 2026 FAM AutoMobile. Built on trust, driven by care."
+  },
+  "Home": {
+    "Hero": {
+      "trusted": "Karachi's trusted auto house",
+      "browse": "Browse inventory",
+      "book": "Book a service",
+      "slide1Title": "Your next car.",
+      "slide1Highlight": "Handled right.",
+      "slide1Sub": "Buy with confidence, sell without the hassle, and keep your car running at its best — all at one honest, dependable destination.",
+      "slide2Title": "Premium rides.",
+      "slide2Highlight": "Unmatched quality.",
+      "slide2Sub": "Explore our curated collection of luxury and performance vehicles tailored for your lifestyle.",
+      "slide3Title": "Expert service.",
+      "slide3Highlight": "Guaranteed.",
+      "slide3Sub": "Our certified mechanics ensure your vehicle stays in peak condition with our comprehensive care."
+    },
+    "Stats": {
+      "years": "Years in business",
+      "sold": "Cars sold",
+      "rating": "Customer rating",
+      "turnaround": "Avg. turnaround",
+      "mechanics": "Expert mechanics",
+      "verified": "Verified cars",
+      "moneyBack": "Money-back"
+    },
+    "Pillars": {
+      "eyebrow": "Everything under one roof",
+      "title": "Move with confidence.",
+      "seeAll": "See all services",
+      "buyTitle": "Buy a car",
+      "buyText": "A carefully selected range of inspected cars, with clear prices and zero pressure.",
+      "sellTitle": "Sell your car",
+      "sellText": "A fair valuation, fast paperwork, and a straightforward offer you can trust.",
+      "repairTitle": "Repair & service",
+      "repairText": "From a routine oil change to complex diagnostics, our workshop has you covered."
+    },
+    "Featured": {
+      "eyebrow": "Ready for the road",
+      "title": "Featured inventory.",
+      "viewAll": "View all cars"
+    },
+    "Why": {
+      "eyebrow": "Why FAM",
+      "title": "The way car care should feel.",
+      "subtitle": "No jargon, no shortcuts, no surprises. Just solid cars and skilled people who take pride in doing things properly.",
+      "transTitle": "Transparent pricing",
+      "transText": "Know exactly what you are paying for.",
+      "inspTitle": "Inspected cars",
+      "inspText": "Every car earns its place on our floor.",
+      "genTitle": "Genuine parts",
+      "genText": "Quality components for lasting peace of mind.",
+      "fastTitle": "Fast turnaround",
+      "fastText": "Your time matters as much as your car.",
+      "badge12": "12 years",
+      "badgeRight": "of doing it right"
+    },
+    "Contact": {
+      "eyebrow": "Say hello",
+      "title": "Let's get you moving.",
+      "subtitle": "Have a car in mind or need a second opinion? Tell us what you need.",
+      "name": "Your name",
+      "phone": "Phone number",
+      "email": "Email address",
+      "subject": "Subject",
+      "message": "How can we help?",
+      "send": "Send enquiry",
+      "spam": "We respect your time. No spam, just a helpful reply from FAM.",
+      "successTitle": "Message received, thank you.",
+      "successSub": "Our team will get back to you shortly. You can also reach us instantly on WhatsApp.",
+      "sending": "Sending..."
+    },
+    "Testimonials": {
+      "eyebrow": "Real words from real drivers",
+      "title": "Good cars. Better people.",
+      "items": {
+        "0": {
+          "name": "Hamza R.",
+          "role": "Corolla owner",
+          "quote": "The team made buying my first used car feel straightforward. No hidden surprises, and the car was exactly as promised."
+        },
+        "1": {
+          "name": "Ayesha K.",
+          "role": "Civic owner",
+          "quote": "I took my car in for AC work before summer. They explained everything clearly and had me back on the road the same day."
+        },
+        "2": {
+          "name": "Bilal M.",
+          "role": "Sportage owner",
+          "quote": "FAM gave me a fair price when I sold my car and handled the paperwork without the usual headache. Highly recommended."
+        }
+      }
+    }
+  },
+  "Services": {
+    "back": "← FAM AutoMobile",
+    "eyebrow": "Workshop care",
+    "title": "Keep your car feeling right.",
+    "subtitle": "Skilled technicians, honest advice, and workshop service built around getting you safely back on the road.",
+    "empty": "No services added yet.",
+    "bookEyebrow": "Book a service",
+    "bookTitle": "Tell us what your car needs.",
+    "bookSub": "Choose a convenient date and our service advisor will confirm your slot.",
+    "bookBtn": "Book your slot"
+  },
+  "Admin": {
+    "dashboard": "Dashboard",
+    "inventory": "Inventory",
+    "services": "Services",
+    "inquiries": "Inquiries",
+    "logout": "Logout",
+    "overview": "Dashboard Overview",
+    "availableCars": "Available Cars",
+    "manage": "Manage",
+    "totalServices": "Total Services",
+    "last7Days": "Last 7 days",
+    "viewAll": "View All"
+  },
+  "ContactPage": {
+    "back": "← FAM AutoMobile",
+    "eyebrow": "Come say hello",
+    "title": "Let's talk cars.",
+    "subtitle": "Whether you want to buy, sell, repair, or simply ask a question, our team is ready.",
+    "monSat": "Mon–Sat: 9 AM–8 PM",
+    "sunday": "Sun: 11 AM–5 PM",
+    "successTitle": "We'll be in touch.",
+    "successSub": "Thanks for reaching out to FAM AutoMobile.",
+    "name": "Your name",
+    "phone": "Phone number",
+    "email": "Email address",
+    "subject": "Subject",
+    "message": "Your message",
+    "send": "Send message",
+    "sending": "Sending..."
+  },
+  "AboutPage": {
+    "back": "← FAM AutoMobile",
+    "eyebrow": "Our story",
+    "title": "Built in Karachi.<br />Driven by trust.",
+    "p1": "FAM AutoMobile started with a simple belief: buying a car and keeping it healthy should not feel complicated. Today, our showroom and workshop bring the whole journey together — with experienced people, fair prices, and advice that puts your interest first.",
+    "p2": "Whether you are upgrading the family car or chasing down a strange dashboard light, you will always get a straight answer from us.",
+    "feat1Title": "People first",
+    "feat1Text": "Friendly guidance from first enquiry to final handover.",
+    "feat2Title": "Hands-on expertise",
+    "feat2Text": "A workshop team that treats every car like their own.",
+    "feat3Title": "12 years strong",
+    "feat3Text": "A reputation built one honest job at a time."
+  },
+  "InventoryPage": {
+    "back": "← FAM AutoMobile",
+    "eyebrow": "Drive something better",
+    "title": "Our inventory.",
+    "subtitle": "Every car is inspected, honestly described, and ready for a test drive in Karachi.",
+    "search": "Search cars",
+    "all": "All",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "hatchback": "Hatchback",
+    "noMatch": "No cars match your search."
+  }
+}
