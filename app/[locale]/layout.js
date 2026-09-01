@@ -1,5 +1,5 @@
 import '../globals.css'
-import { SiteNav, Footer, WhatsApp } from '@/components/LayoutComponents'
+import { SiteNav, Footer, WhatsApp, MainContentWrapper } from '@/components/LayoutComponents'
 import { Providers } from '@/components/Providers'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
@@ -15,7 +15,7 @@ export default async function RootLayout({ children, params }) {
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <SiteNav />
-            <div className="pt-20 min-h-[calc(100vh-80px)]">{children}</div>
+            <MainContentWrapper>{children}</MainContentWrapper>
             <WhatsApp />
             <Footer />
           </Providers>

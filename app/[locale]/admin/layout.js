@@ -11,7 +11,7 @@ export default async function AdminLayout({ children, params }) {
 
 
   return (
-    <div className="flex h-[calc(100vh-80px)] bg-muted/20">
+    <div className="flex h-screen bg-muted/20">
       <aside className="w-64 border-e border-border bg-card flex flex-col">
         <div className="flex h-20 shrink-0 items-center px-6 border-b border-border">
           <Link href={`/${locale}/admin`} className="font-display text-xl font-bold">

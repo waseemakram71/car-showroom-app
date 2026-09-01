@@ -2,7 +2,8 @@ import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import { Plus, Pencil, Trash } from 'lucide-react'
 
-export default async function AdminServicesPage() {
+export default async function AdminServicesPage({ params }) {
+  const locale = (await params).locale;
   const services = await prisma.service.findMany({
     orderBy: { createdAt: 'desc' }
   })
@@ -11,7 +12,7 @@ export default async function AdminServicesPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="font-display text-3xl font-bold">Manage Services</h1>
-        <Link href="/admin/services/new" className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition hover:opacity-90">
+        <Link href={`/${locale}/admin/services/new`} className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground transition hover:opacity-90">
           <Plus className="h-4 w-4" /> Add Service
         </Link>
       </div>

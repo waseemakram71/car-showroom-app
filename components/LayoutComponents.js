@@ -58,6 +58,9 @@ export const SiteNav = () => {
     [t('about'), `/${locale}/about`], 
     [t('contact'), `/${locale}/contact`]
   ]
+
+  if (pathname?.includes('/admin')) return null
+  
   
   return <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/85 backdrop-blur-xl">
     <div className="container flex h-20 items-center justify-between">
@@ -118,7 +121,7 @@ export const Footer = () => {
   if (pathname?.includes('/admin')) return null
 
   return (
-    <footer className="border-t border-white/10 bg-black/20">
+    <footer className="border-t border-white/10 bg-white/5">
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Link href={`/${locale}`} className="font-display text-2xl font-bold">
@@ -184,3 +187,12 @@ export const WhatsApp = () => {
     </a>
   )
 }
+
+export const MainContentWrapper = ({ children }) => {
+  const pathname = usePathname()
+  if (pathname?.includes('/admin')) {
+    return <>{children}</>
+  }
+  return <div className="pt-20 min-h-[calc(100vh-80px)]">{children}</div>
+}
+
