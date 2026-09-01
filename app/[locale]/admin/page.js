@@ -36,7 +36,7 @@ export default async function AdminDashboard({ params }) {
           <div
             key={label}
             className="rounded-2xl p-6 transition border border-white/10 hover:border-white/30 shadow-lg group"
-            style={{ background: '#071D2B' }}
+            style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="rounded-xl p-2 bg-white/10">

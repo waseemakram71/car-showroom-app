@@ -9,7 +9,7 @@ export default function AdminDashboardLoading() {
           <div
             key={i}
             className="rounded-2xl p-6 border border-white/10"
-            style={{ background: '#071D2B' }}
+            style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="h-9 w-9 rounded-xl bg-white/10 animate-pulse"></div>

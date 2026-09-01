@@ -62,7 +62,7 @@ export const SiteNav = () => {
   if (pathname?.includes('/admin')) return null
 
   return (
-    <header style={{ background: '#071D2B' }} className="fixed inset-x-0 top-0 z-50 border-b border-white/10 backdrop-blur-xl">
+    <header style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }} className="fixed inset-x-0 top-0 z-50 border-b border-white/10 backdrop-blur-xl">
       <div className="w-full px-6 lg:px-16 xl:px-24 flex h-20 items-center justify-between mx-auto max-w-[1920px]">
         <Link href={`/${locale}`} className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <span className="grid h-10 w-10 place-items-center rounded-xl text-xl font-black" style={{ background: '#0D2D40', color: '#F7F8F8' }}>F</span>
@@ -160,7 +160,7 @@ export const Footer = () => {
   if (pathname?.includes('/admin')) return null
 
   return (
-    <footer style={{ background: '#071D2B', borderTop: '1px solid rgba(255,255,255,0.10)' }}>
+    <footer style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', borderTop: '1px solid rgba(255,255,255,0.10)' }}>
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Link href={`/${locale}`} className="font-display text-2xl font-bold" style={{ color: '#F7F8F8' }}>

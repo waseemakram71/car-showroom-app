@@ -210,7 +210,7 @@ export default function Home() {
 
         {/* ── Stats Ticker ── */}
         <section className="py-12 border-y overflow-hidden flex w-full group"
-          style={{ background: '#F8F7F4', borderColor: '#DCE2E6' }}>
+          style={{ background: '#FFFFFF', borderColor: '#DCE2E6' }}>
           {[0, 1].map((dup) => (
             <div
               key={dup}
@@ -219,7 +219,7 @@ export default function Home() {
               {[['12+', t('Stats.years')], ['1,200+', t('Stats.sold')], ['4.9/5', t('Stats.rating')], ['24 hrs', t('Stats.turnaround')], ['50+', t('Stats.mechanics')], ['100%', t('Stats.verified')], ['7 Days', t('Stats.moneyBack')]].map(([value, label]) => (
                 <div key={label + dup}
                   className="w-[280px] flex shrink-0 flex-col items-center justify-center text-center px-6 py-10 rounded-3xl transition-all"
-                  style={{ background: '#071D2B', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 24px rgba(7,29,43,0.12)' }}
+                  style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 24px rgba(7,29,43,0.12)' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
                 >
@@ -232,7 +232,8 @@ export default function Home() {
         </section>
 
         {/* ── Service Pillars ── */}
-        <section className="container py-24">
+        <section className="py-24" style={{ background: '#F8F7F4' }}>
+          <div className="container">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className="eyebrow">{t('Pillars.eyebrow')}</p>
@@ -252,7 +253,7 @@ export default function Home() {
             ].map(([n, title, text, Icon, href]) => (
               <Link href={href} key={title}
                 className="group rounded-2xl border p-7 transition"
-                style={{ background: '#071D2B', borderColor: 'rgba(255,255,255,0.08)', boxShadow: '0 4px 12px rgba(7,29,43,0.12)' }}
+                style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', borderColor: 'rgba(255,255,255,0.08)', boxShadow: '0 4px 12px rgba(7,29,43,0.12)' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(7,29,43,0.25)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(7,29,43,0.12)' }}
               >
@@ -268,19 +269,20 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          </div>
         </section>
 
         {/* ── Featured Inventory ── */}
-        <section className="py-24" style={{ background: '#F1F4F6' }}>
+        <section className="py-24" style={{ background: '#071D2B' }}>
           <div className="container">
             <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
               <div>
-                <p className="eyebrow">{t('Featured.eyebrow')}</p>
-                <h2 className="section-title" style={{ color: '#091C29' }}>{t('Featured.title')}</h2>
+                <p className="eyebrow" style={{ color: '#B8C3CA' }}>{t('Featured.eyebrow')}</p>
+                <h2 className="section-title" style={{ color: '#FFFFFF' }}>{t('Featured.title')}</h2>
               </div>
-              <Link href={`/${locale}/inventory`} className="text-sm font-bold transition" style={{ color: '#071D2B' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#0D2D40'}
-                onMouseLeave={e => e.currentTarget.style.color = '#071D2B'}>
+              <Link href={`/${locale}/inventory`} className="text-sm font-bold transition" style={{ color: '#F7F8F8' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#B8C3CA'}
+                onMouseLeave={e => e.currentTarget.style.color = '#F7F8F8'}>
                 {t('Featured.viewAll')} <ArrowRight className="ml-1 inline h-4 w-4" />
               </Link>
             </div>
@@ -293,7 +295,8 @@ export default function Home() {
         </section>
 
         {/* ── Why Choose Us ── */}
-        <section className="container grid gap-12 py-24 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+        <section className="py-24" style={{ background: '#FFFFFF' }}>
+          <div className="container grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
           <div>
             <p className="eyebrow">{t('Why.eyebrow')}</p>
             <h2 className="section-title" style={{ color: '#091C29' }}>{t('Why.title')}</h2>
@@ -327,10 +330,11 @@ export default function Home() {
               <p className="text-xs" style={{ color: '#B8C3CA' }}>{t('Why.badgeRight')}</p>
             </div>
           </div>
+          </div>
         </section>
 
         {/* ── Contact CTA ── */}
-        <section className="py-20" style={{ background: '#071D2B' }}>
+        <section className="py-20" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}>
           <div className="container grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
             <div>
               <p className="text-xs font-bold uppercase tracking-[.25em]" style={{ color: '#B8C3CA' }}>
@@ -346,7 +350,8 @@ export default function Home() {
         </section>
 
         {/* ── Testimonials ── */}
-        <section className="container py-24">
+        <section className="py-24" style={{ background: '#F8F7F4' }}>
+          <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">{t('Testimonials.eyebrow')}</p>
             <h2 className="section-title" style={{ color: '#091C29' }}>{t('Testimonials.title')}</h2>
@@ -383,6 +388,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
+          </div>
           </div>
         </section>
       </main>

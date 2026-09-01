@@ -14,7 +14,7 @@ export default async function AdminLayout({ children, params }) {
   return (
     <div className="flex h-screen" style={{ background: '#F1F4F6' }}>
       {/* Sidebar */}
-      <aside className="w-64 flex flex-col" style={{ background: '#071D2B', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+      <aside className="w-64 flex flex-col" style={{ background: 'linear-gradient(160deg, #071D2B 0%, #0D324A 100%)', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="flex h-20 shrink-0 items-center px-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href={`/${locale}/admin`} className="font-display text-xl font-bold" style={{ color: '#F7F8F8' }}>
             FAM <span style={{ color: '#B8C3CA' }}>Admin</span>

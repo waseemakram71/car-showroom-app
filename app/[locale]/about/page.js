@@ -29,21 +29,21 @@ export default function AboutPage() {
           />
         </div>
         <div className="mt-16 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #0D2D40 0%, rgba(13, 45, 64, 0.4) 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="inline-flex rounded-xl p-3" style={{ background: '#FFFFFF', color: '#071D2B' }}>
               <Users className="h-6 w-6" />
             </div>
             <p className="mt-8 font-display text-2xl font-bold text-[#FFFFFF]">{t('feat1Title')}</p>
             <p className="mt-2 text-sm text-[#B8C3CA]">{t('feat1Text')}</p>
           </div>
-          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #0D2D40 0%, rgba(13, 45, 64, 0.4) 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="inline-flex rounded-xl p-3" style={{ background: '#FFFFFF', color: '#071D2B' }}>
               <Wrench className="h-6 w-6" />
             </div>
             <p className="mt-8 font-display text-2xl font-bold text-[#FFFFFF]">{t('feat2Title')}</p>
             <p className="mt-2 text-sm text-[#B8C3CA]">{t('feat2Text')}</p>
           </div>
-          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #0D2D40 0%, rgba(13, 45, 64, 0.4) 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="rounded-2xl p-6 transition" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div className="inline-flex rounded-xl p-3" style={{ background: '#FFFFFF', color: '#071D2B' }}>
               <Check className="h-6 w-6" />
             </div>
