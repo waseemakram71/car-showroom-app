@@ -15,7 +15,9 @@ export default async function AdminInquiriesPage() {
             <tr>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Date</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Type</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Contact Info</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Name</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Phone</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Email</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Details</th>
             </tr>
           </thead>
@@ -30,10 +32,14 @@ export default async function AdminInquiriesPage() {
                     {inquiry.type.replace('-', ' ')}
                   </span>
                 </td>
-                <td className="px-6 py-4">
-                  <div className="font-medium text-foreground">{inquiry.name}</div>
-                  <div className="text-muted-foreground text-xs mt-1">{inquiry.phone}</div>
-                  {inquiry.email && <div className="text-muted-foreground text-xs">{inquiry.email}</div>}
+                <td className="px-6 py-4 font-medium text-foreground">
+                  {inquiry.name}
+                </td>
+                <td className="px-6 py-4 text-muted-foreground text-sm">
+                  {inquiry.phone}
+                </td>
+                <td className="px-6 py-4 text-muted-foreground text-sm">
+                  {inquiry.email || '-'}
                 </td>
                 <td className="px-6 py-4 max-w-xs">
                   {inquiry.carModel && <div className="text-xs font-bold text-foreground mb-1">Model: {inquiry.carModel}</div>}
@@ -45,7 +51,7 @@ export default async function AdminInquiriesPage() {
             ))}
             {inquiries.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-6 py-8 text-center text-muted-foreground">No inquiries found.</td>
+                <td colSpan="6" className="px-6 py-8 text-center text-muted-foreground">No inquiries found.</td>
               </tr>
             )}
           </tbody>
