@@ -159,7 +159,7 @@ export const Footer = () => {
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Link href={`/${locale}`} className="flex items-center -ml-2">
-            <img src="/logo.png" alt="FAM AutoMobile" className="h-24 w-auto object-contain mix-blend-screen scale-[1.5] md:scale-[2] origin-left" />
+            <img src="/logo.png" alt="FAM AutoMobile" className="h-24 w-auto object-contain mix-blend-screen scale-110 md:scale-[1.3] origin-left" />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-7" style={{ color: '#B8C3CA' }}>
             {tFooter('description')}
