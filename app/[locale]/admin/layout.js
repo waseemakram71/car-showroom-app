@@ -25,6 +25,7 @@ export default async function AdminLayout({ children, params }) {
           translations={{
             dashboard: t('dashboard'),
             inventory: t('inventory'),
+            employees: t('employees'),
             services: t('services'),
             inquiries: t('inquiries')
           }}

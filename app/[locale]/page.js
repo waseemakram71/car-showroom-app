@@ -210,7 +210,7 @@ export default function Home() {
 
         {/* ── Stats Ticker ── */}
         <section className="py-12 border-y overflow-hidden flex w-full group"
-          style={{ background: '#FFFFFF', borderColor: '#DCE2E6' }}>
+          style={{ background: '#F4F9FD', borderColor: '#DCE2E6' }}>
           {[0, 1].map((dup) => (
             <div
               key={dup}
@@ -232,7 +232,7 @@ export default function Home() {
         </section>
 
         {/* ── Service Pillars ── */}
-        <section className="py-24" style={{ background: '#F8F7F4' }}>
+        <section className="py-24" style={{ background: '#EDF4FA' }}>
           <div className="container">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
@@ -295,7 +295,7 @@ export default function Home() {
         </section>
 
         {/* ── Why Choose Us ── */}
-        <section className="py-24" style={{ background: '#FFFFFF' }}>
+        <section className="py-24" style={{ background: '#F4F9FD' }}>
           <div className="container grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
           <div>
             <p className="eyebrow">{t('Why.eyebrow')}</p>
@@ -350,7 +350,7 @@ export default function Home() {
         </section>
 
         {/* ── Testimonials ── */}
-        <section className="py-24" style={{ background: '#F8F7F4' }}>
+        <section className="py-24" style={{ background: '#EDF4FA' }}>
           <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">{t('Testimonials.eyebrow')}</p>

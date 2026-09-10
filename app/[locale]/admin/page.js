@@ -2,12 +2,16 @@ import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import { Car, Wrench, MessageSquare } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import DashboardCharts from '@/components/admin/DashboardCharts'
+import EmployeesTable from '@/components/admin/EmployeesTable'
+// Triggering Webpack rebuild
+import CarPurchasesTable from '../../../components/admin/CarPurchasesTable'
 
 export default async function AdminDashboard({ params }) {
   const locale = (await params).locale;
   const t = await getTranslations({ locale, namespace: 'Admin' });
 
-  const [totalCars, availableCars, totalServices, newInquiries] = await Promise.all([
+  const [totalCars, availableCars, totalServices, newInquiries, cars] = await Promise.all([
     prisma.car.count(),
     prisma.car.count({ where: { status: 'available' } }),
     prisma.service.count(),
@@ -18,6 +22,7 @@ export default async function AdminDashboard({ params }) {
         }
       }
     }),
+    prisma.car.findMany({ orderBy: { createdAt: 'desc' } })
   ])
 
   const cards = [
@@ -25,6 +30,30 @@ export default async function AdminDashboard({ params }) {
     { icon: Wrench, label: t('services'), value: totalServices, sub: t('totalServices'), href: `/${locale}/admin/services`, action: t('manage') },
     { icon: MessageSquare, label: t('inquiries'), value: newInquiries, sub: t('last7Days'), href: `/${locale}/admin/inquiries`, action: t('viewAll') },
   ]
+
+  // Chart translations passed as serializable props to the client component
+  const chartTranslations = {
+    monthlySales: t('monthlySales'),
+    salesRevenue: t('salesRevenue'),
+    carsSold: t('carsSold'),
+    revenueVsExpense: t('revenueVsExpense'),
+    inquiryTrends: t('inquiryTrends'),
+    totalCarsSold: t('totalCarsSold'),
+    totalRevenue: t('totalRevenue'),
+    totalInquiries: t('totalInquiries'),
+    noChartData: t('noChartData'),
+  }
+
+  const employeeTranslations = {
+    manageEmployees: t('manageEmployees'),
+    addEmployee: t('addEmployee'),
+    employee: t('employee'),
+    role: t('role'),
+    salary: t('salary'),
+    status: t('status'),
+    actions: t('actions'),
+    noEmployees: t('noEmployees'),
+  }
 
   return (
     <div>
@@ -58,6 +87,16 @@ export default async function AdminDashboard({ params }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <DashboardCharts translations={chartTranslations} />
+
+      <div className="mt-16">
+        <EmployeesTable locale={locale} translations={employeeTranslations} />
+      </div>
+
+      <div className="mt-12">
+        <CarPurchasesTable />
       </div>
     </div>
   )

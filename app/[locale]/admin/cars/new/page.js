@@ -76,67 +76,71 @@ export default function NewCarPage() {
         <h1 className="font-display text-3xl font-bold text-[#071D2B]">Add New Car</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-3xl" style={{ background: '#071D2B', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 24px rgba(7,29,43,0.12)' }}>
-        {error && <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold border border-red-100">{error}</div>}
+      <div className="relative">
+        {/* Subtle decorative glowing background for the glass effect */}
+        <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -z-10 rounded-full opacity-60"></div>
         
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Car Name</label>
-            <input required name="name" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="e.g. Honda Civic Oriel" />
+        <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-3xl backdrop-blur-2xl bg-[#071D2B]/80 border border-white/10 shadow-[0_8px_32px_rgba(7,29,43,0.2)] relative overflow-hidden">
+          {/* subtle inner highlight */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none rounded-3xl"></div>
+          
+          {error && <div className="relative p-4 bg-red-500/10 text-red-200 rounded-xl text-sm font-bold border border-red-500/20">{error}</div>}
+          
+          <div className="relative grid gap-6 md:grid-cols-2">
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Car Name</label>
+              <input required name="name" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="e.g. Honda Civic Oriel" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Brand</label>
+              <input required name="brand" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="e.g. Honda" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Year</label>
+              <input required type="number" name="year" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="2022" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Price</label>
+              <input required name="price" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="PKR 6,890,000" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Mileage</label>
+              <input required name="mileage" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="42,500 km" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Fuel Type</label>
+              <input required name="fuelType" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="Petrol" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Transmission</label>
+              <input required name="transmission" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="Automatic / CVT" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2 text-white/90">Body Type</label>
+              <input required name="bodyType" className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10" placeholder="Sedan / SUV" />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Brand</label>
-            <input required name="brand" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="e.g. Honda" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Year</label>
-            <input required type="number" name="year" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="2022" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Price</label>
-            <input required name="price" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="PKR 6,890,000" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Mileage</label>
-            <input required name="mileage" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="42,500 km" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Fuel Type</label>
-            <input required name="fuelType" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Petrol" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Transmission</label>
-            <input required name="transmission" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Automatic / CVT" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Body Type</label>
-            <input required name="bodyType" className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} placeholder="Sedan / SUV" />
-          </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Description</label>
-          <textarea required name="description" rows={4} className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition placeholder:text-[#87939C] focus:border-white focus:ring-1 focus:ring-white" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }}></textarea>
-        </div>
+          <div className="relative">
+            <label className="block text-sm font-medium mb-2 text-white/90">Description</label>
+            <textarea required name="description" rows={4} className="w-full rounded-xl px-4 py-3 text-sm outline-none transition placeholder:text-white/30 text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10"></textarea>
+          </div>
 
-        <div>
-          <label className="block text-sm font-bold mb-2 text-[#F7F8F8]">Cover Image</label>
-          <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:border-white focus:ring-1 focus:ring-white cursor-pointer" style={{ backgroundColor: '#0D2D40', borderColor: 'rgba(255,255,255,0.08)', color: '#FFFFFF' }} />
-        </div>
+          <div className="relative">
+            <label className="block text-sm font-medium mb-2 text-white/90">Cover Image</label>
+            <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} className="w-full rounded-xl px-4 py-3 text-sm outline-none transition text-white bg-white/5 border border-white/10 focus:bg-white/10 focus:border-white/30 focus:ring-4 focus:ring-white/5 backdrop-blur-sm hover:bg-white/10 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 cursor-pointer" />
+          </div>
 
-        <div className="flex items-center gap-3 p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <input type="checkbox" name="featured" id="featured" className="h-5 w-5 rounded border-gray-300 text-[#071D2B] focus:ring-white" />
-          <label htmlFor="featured" className="text-sm font-bold cursor-pointer text-[#F7F8F8]">Feature on Homepage</label>
-        </div>
+          <div className="relative flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition">
+            <input type="checkbox" name="featured" id="featured" className="h-5 w-5 rounded border-white/20 bg-white/10 text-white focus:ring-white/50 focus:ring-offset-0 focus:ring-2 cursor-pointer transition" />
+            <label htmlFor="featured" className="text-sm font-medium cursor-pointer text-white/90">Feature on Homepage</label>
+          </div>
 
-        <button disabled={loading} type="submit" className="w-full rounded-xl px-4 py-4 font-bold transition disabled:opacity-50"
-          style={{ background: '#FFFFFF', color: '#071D2B' }}
-          onMouseEnter={e => e.currentTarget.style.background = '#F1F4F6'}
-          onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}
-        >
-          {loading ? 'Saving...' : 'Save Car'}
-        </button>
-      </form>
+          <button disabled={loading} type="submit" className="relative w-full rounded-xl px-4 py-4 font-bold transition disabled:opacity-50 bg-white text-[#071D2B] hover:bg-[#F1F4F6] hover:scale-[1.01] active:scale-[0.99] shadow-lg">
+            {loading ? 'Saving...' : 'Save Car'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

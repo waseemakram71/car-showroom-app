@@ -86,12 +86,10 @@ export const SiteNav = () => {
               </Link>
             )
           })}
-          {session && (
-            <Link href={`/${locale}/admin`} className="ml-2 px-4 py-2 rounded-full text-sm font-bold transition"
-              style={{ background: '#0D2D40', color: '#F7F8F8' }}>
-              {t('admin')}
-            </Link>
-          )}
+          <Link href={`/${locale}/admin`} className="ml-2 px-4 py-2 rounded-full text-sm font-bold transition"
+            style={{ background: '#0D2D40', color: '#F7F8F8' }}>
+            {t('admin')}
+          </Link>
           <ThemeToggle />
           <LanguageSwitcher />
           <div className="ml-2">
@@ -125,13 +123,11 @@ export const SiteNav = () => {
               </Link>
             )
           })}
-          {session && (
-            <Link href={`/${locale}/admin`} onClick={() => setOpen(false)}
-              className="mb-2 block rounded-lg px-4 py-4 text-sm font-bold transition"
-              style={{ background: '#0D2D40', color: '#F7F8F8' }}>
-              {t('admin')}
-            </Link>
-          )}
+          <Link href={`/${locale}/admin`} onClick={() => setOpen(false)}
+            className="mb-2 block rounded-lg px-4 py-4 text-sm font-bold transition"
+            style={{ background: '#0D2D40', color: '#F7F8F8' }}>
+            {t('admin')}
+          </Link>
           <Link href={`/${locale}/contact`} onClick={() => setOpen(false)}
             className="mt-4 block rounded-full px-5 py-3 text-center text-sm font-bold"
             style={{ background: '#F7F8F8', color: '#071D2B' }}>
