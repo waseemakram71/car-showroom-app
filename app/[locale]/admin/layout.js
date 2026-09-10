@@ -16,8 +16,8 @@ export default async function AdminLayout({ children, params }) {
       {/* Sidebar */}
       <aside className="w-64 flex flex-col" style={{ background: 'linear-gradient(160deg, #071D2B 0%, #0D324A 100%)', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="flex h-20 shrink-0 items-center px-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <Link href={`/${locale}/admin`} className="font-display text-xl font-bold" style={{ color: '#F7F8F8' }}>
-            FAM <span style={{ color: '#B8C3CA' }}>Admin</span>
+          <Link href={`/${locale}/admin`} className="flex items-center -ml-2 mt-4 mb-4">
+            <img src="/logo.png" alt="FAM AutoMobile" className="h-16 w-auto object-contain mix-blend-screen scale-110 md:scale-[1.3] origin-left" />
           </Link>
         </div>
         <AdminNav

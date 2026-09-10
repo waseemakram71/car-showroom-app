@@ -65,8 +65,7 @@ export const SiteNav = () => {
     <header style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }} className="fixed inset-x-0 top-0 z-50 border-b border-white/10 backdrop-blur-xl">
       <div className="w-full px-6 lg:px-16 xl:px-24 flex h-20 items-center justify-between mx-auto max-w-[1920px]">
         <Link href={`/${locale}`} className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="grid h-10 w-10 place-items-center rounded-xl text-xl font-black" style={{ background: '#0D2D40', color: '#F7F8F8' }}>F</span>
-          <span className="font-display text-xl font-bold tracking-tight" style={{ color: '#F7F8F8' }}>FAM <span style={{ color: '#B8C3CA' }}>AutoMobile</span></span>
+          <img src="/logo.png" alt="FAM AutoMobile" className="h-16 w-auto object-contain mix-blend-screen scale-110 md:scale-[1.3] origin-left" />
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map(([label, href]) => {
@@ -159,8 +158,8 @@ export const Footer = () => {
     <footer style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', borderTop: '1px solid rgba(255,255,255,0.10)' }}>
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <Link href={`/${locale}`} className="font-display text-2xl font-bold" style={{ color: '#F7F8F8' }}>
-            FAM <span style={{ color: '#B8C3CA' }}>AutoMobile</span>
+          <Link href={`/${locale}`} className="flex items-center -ml-2">
+            <img src="/logo.png" alt="FAM AutoMobile" className="h-24 w-auto object-contain mix-blend-screen scale-[1.5] md:scale-[2] origin-left" />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-7" style={{ color: '#B8C3CA' }}>
             {tFooter('description')}
