@@ -21,9 +21,11 @@ export default async function AdminCarsPage() {
 
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #DCE2E6', boxShadow: '0 4px 12px rgba(7,29,43,0.06)' }}>
         <table className="w-full text-left text-sm">
-          <thead style={{ background: '#071D2B', color: '#FFFFFF' }}>
+          <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
             <tr>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Car</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Model Name</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Year</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Mileage</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Price</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Status</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">Actions</th>
@@ -32,10 +34,9 @@ export default async function AdminCarsPage() {
           <tbody>
             {cars.map(car => (
               <tr key={car.id} className="transition" style={{ borderBottom: '1px solid #DCE2E6' }}>
-                <td className="px-6 py-4">
-                  <div className="font-bold text-base" style={{ color: '#091C29' }}>{car.name}</div>
-                  <div className="text-xs mt-1" style={{ color: '#63717C' }}>{car.year} • {car.mileage}</div>
-                </td>
+                <td className="px-6 py-4 font-bold text-base" style={{ color: '#091C29' }}>{car.name}</td>
+                <td className="px-6 py-4" style={{ color: '#63717C' }}>{car.year}</td>
+                <td className="px-6 py-4" style={{ color: '#63717C' }}>{car.mileage}</td>
                 <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>{car.price}</td>
                 <td className="px-6 py-4">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${car.status === 'available' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
@@ -52,7 +53,7 @@ export default async function AdminCarsPage() {
             ))}
             {cars.length === 0 && (
               <tr>
-                <td colSpan="4" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No cars in inventory.</td>
+                <td colSpan="6" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No cars in inventory.</td>
               </tr>
             )}
           </tbody>

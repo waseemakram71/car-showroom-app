@@ -11,12 +11,12 @@ export default async function AdminInquiriesPage() {
 
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-muted/50 text-muted-foreground">
+          <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
             <tr>
-              <th className="px-6 py-4 font-medium">Date</th>
-              <th className="px-6 py-4 font-medium">Type</th>
-              <th className="px-6 py-4 font-medium">Contact Info</th>
-              <th className="px-6 py-4 font-medium">Details</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Date</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Type</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Contact Info</th>
+              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Details</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">

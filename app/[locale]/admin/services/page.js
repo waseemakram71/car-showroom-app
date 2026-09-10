@@ -21,7 +21,7 @@ export default async function AdminServicesPage({ params }) {
 
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #DCE2E6', boxShadow: '0 4px 12px rgba(7,29,43,0.06)' }}>
         <table className="w-full text-left text-sm">
-          <thead style={{ background: '#071D2B', color: '#FFFFFF' }}>
+          <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
             <tr>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Service Title</th>
               <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Description</th>
