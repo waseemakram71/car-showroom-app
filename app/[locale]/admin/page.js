@@ -3,9 +3,6 @@ import Link from 'next/link'
 import { Car, Wrench, MessageSquare } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import DashboardCharts from '@/components/admin/DashboardCharts'
-import EmployeesTable from '@/components/admin/EmployeesTable'
-// Triggering Webpack rebuild
-import CarPurchasesTable from '../../../components/admin/CarPurchasesTable'
 
 export default async function AdminDashboard({ params }) {
   const locale = (await params).locale;
@@ -91,13 +88,6 @@ export default async function AdminDashboard({ params }) {
 
       <DashboardCharts translations={chartTranslations} />
 
-      <div className="mt-16">
-        <EmployeesTable locale={locale} translations={employeeTranslations} />
-      </div>
-
-      <div className="mt-12">
-        <CarPurchasesTable />
-      </div>
     </div>
   )
 }

@@ -133,6 +133,7 @@
     "dashboard": "Dashboard",
     "inventory": "Inventory",
     "employees": "Employees",
+    "purchases": "Car Purchases",
     "services": "Services",
     "inquiries": "Inquiries",
     "logout": "Logout",

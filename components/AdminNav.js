@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Car, Wrench, MessageSquare, LayoutDashboard, Users } from 'lucide-react'
+import { Car, Wrench, MessageSquare, LayoutDashboard, Users, ShoppingCart } from 'lucide-react'
 
 export function AdminNav({ locale, translations }) {
   const pathname = usePathname()
@@ -10,6 +10,7 @@ export function AdminNav({ locale, translations }) {
     { label: translations.dashboard, href: `/${locale}/admin`, icon: LayoutDashboard },
     { label: translations.inventory, href: `/${locale}/admin/cars`, icon: Car },
     { label: translations.employees, href: `/${locale}/admin/employees`, icon: Users },
+    { label: translations.purchases, href: `/${locale}/admin/purchases`, icon: ShoppingCart },
     { label: translations.services, href: `/${locale}/admin/services`, icon: Wrench },
     { label: translations.inquiries, href: `/${locale}/admin/inquiries`, icon: MessageSquare },
   ]

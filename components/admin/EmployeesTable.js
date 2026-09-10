@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Plus, Pencil, Trash, X } from 'lucide-react'
+import { Plus, Pencil, Trash, X, Search, ChevronLeft, ChevronRight } from 'lucide-react'
+import FilterSelect from './FilterSelect'
 
 export default function EmployeesTable({ locale, translations }) {
   const router = useRouter()
@@ -16,6 +17,13 @@ export default function EmployeesTable({ locale, translations }) {
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState('')
   const [imageFile, setImageFile] = useState(null)
+
+  // Filter & Pagination States
+  const [searchQuery, setSearchQuery] = useState('')
+  const [roleFilter, setRoleFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
   useEffect(() => {
     async function fetchEmployees() {
@@ -142,89 +150,180 @@ export default function EmployeesTable({ locale, translations }) {
     }
   }
 
+  // Filter and Pagination Logic
+  const uniqueRoles = ['all', ...Array.from(new Set(employees.map(e => e.role))).filter(Boolean)]
+  const roleOptions = [
+    { value: 'all', label: 'All Roles' },
+    ...uniqueRoles.filter(r => r !== 'all').map(r => ({ value: r, label: r }))
+  ]
+  const statusOptions = [
+    { value: 'all', label: 'All Status' },
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' }
+  ]
+
+  const filteredEmployees = employees.filter(employee => {
+    const matchesSearch = 
+      employee.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      employee.phone?.includes(searchQuery) ||
+      employee.role?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesRole = roleFilter === 'all' || employee.role === roleFilter;
+    const matchesStatus = statusFilter === 'all' || employee.status === statusFilter;
+
+    return matchesSearch && matchesRole && matchesStatus;
+  })
+
+  const totalPages = Math.max(1, Math.ceil(filteredEmployees.length / itemsPerPage))
+  const paginatedEmployees = filteredEmployees.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, roleFilter, statusFilter])
+
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="font-display text-3xl font-bold" style={{ color: '#091C29' }}>{translations.manageEmployees}</h1>
-        <button onClick={handleOpenAdd} className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition hover:shadow-lg hover:scale-[1.02]"
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#091C29' }}>{translations.manageEmployees}</h1>
+        <button onClick={handleOpenAdd} className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition hover:shadow-lg hover:scale-[1.02] w-full sm:w-auto justify-center"
           style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}
         >
           <Plus className="h-4 w-4" /> {translations.addEmployee}
         </button>
       </div>
 
+      {/* Controls: Search & Filters */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <input 
+            type="text" 
+            placeholder="Search employees by name, phone, or role..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-2xl pl-11 pr-4 py-3 text-sm outline-none transition bg-white border border-[#DCE2E6] focus:border-[#0D324A] focus:ring-2 focus:ring-[#0D324A]/10 shadow-sm text-[#091C29]"
+          />
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+          <FilterSelect value={roleFilter} onChange={setRoleFilter} options={roleOptions} className="w-full sm:w-auto" minWidth="160px" />
+          <FilterSelect value={statusFilter} onChange={setStatusFilter} options={statusOptions} className="w-full sm:w-auto" minWidth="140px" />
+        </div>
+      </div>
+
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #DCE2E6', boxShadow: '0 4px 12px rgba(7,29,43,0.06)' }}>
-        <table className="w-full text-left text-sm">
-          <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
-            <tr>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.employee}</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.role}</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.salary}</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.status}</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">{translations.actions}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm min-w-[800px]">
+            <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
               <tr>
-                <td colSpan="5" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="h-4 w-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-                    Loading...
-                  </div>
-                </td>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.employee}</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.role}</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.salary}</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">{translations.status}</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">{translations.actions}</th>
               </tr>
-            ) : employees.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>{translations.noEmployees}</td>
-              </tr>
-            ) : (
-              employees.map(employee => (
-                <tr key={employee.id} className="transition hover:bg-gray-50" style={{ borderBottom: '1px solid #DCE2E6' }}>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      {employee.image ? (
-                        <img src={employee.image} alt={employee.name} className="h-10 w-10 rounded-full object-cover border border-gray-200" />
-                      ) : (
-                        <div className="h-10 w-10 rounded-full flex items-center justify-center font-bold text-lg text-[#FFFFFF]" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}>
-                          {employee.name ? employee.name.charAt(0).toUpperCase() : '?'}
+            </thead>
+            <tbody>
+              {loading ? (
+                [...Array(5)].map((_, i) => (
+                  <tr key={i} className="animate-pulse" style={{ borderBottom: '1px solid #DCE2E6' }}>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+                        <div className="space-y-2">
+                          <div className="h-4 w-32 rounded bg-gray-200"></div>
+                          <div className="h-3 w-20 rounded bg-gray-200"></div>
                         </div>
-                      )}
-                      <div>
-                        <div className="font-bold text-base" style={{ color: '#091C29' }}>{employee.name}</div>
-                        <div className="text-xs mt-1" style={{ color: '#63717C' }}>{employee.phone}</div>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-medium" style={{ color: '#071D2B' }}>{employee.role}</td>
-                  <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>PKR {employee.salary?.toLocaleString()}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${employee.status === 'active' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
-                      {employee.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
-                    <button 
-                      onClick={() => handleOpenEdit(employee)}
-                      className="inline-flex p-2 rounded-lg transition hover:bg-[#071D2B]/10 hover:scale-110" 
-                      style={{ color: '#0D324A' }} 
-                      title="Edit employee"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(employee.id)}
-                      className="inline-flex p-2 transition rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 hover:scale-110"
-                      title="Delete employee"
-                    >
-                      <Trash className="h-4 w-4" />
-                    </button>
-                  </td>
+                    </td>
+                    <td className="px-6 py-4"><div className="h-4 w-24 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4"><div className="h-4 w-28 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4"><div className="h-6 w-16 rounded-full bg-gray-200"></div></td>
+                    <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                      <div className="h-8 w-8 rounded-lg bg-gray-200"></div>
+                      <div className="h-8 w-8 rounded-lg bg-gray-200"></div>
+                    </td>
+                  </tr>
+                ))
+              ) : filteredEmployees.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No matching employees found.</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                paginatedEmployees.map(employee => (
+                  <tr key={employee.id} className="transition hover:bg-gray-50" style={{ borderBottom: '1px solid #DCE2E6' }}>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        {employee.image ? (
+                          <img src={employee.image} alt={employee.name} className="h-10 w-10 rounded-full object-cover border border-gray-200" />
+                        ) : (
+                          <div className="h-10 w-10 rounded-full flex items-center justify-center font-bold text-lg text-[#FFFFFF]" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}>
+                            {employee.name ? employee.name.charAt(0).toUpperCase() : '?'}
+                          </div>
+                        )}
+                        <div>
+                          <div className="font-bold text-base" style={{ color: '#091C29' }}>{employee.name}</div>
+                          <div className="text-xs mt-1" style={{ color: '#63717C' }}>{employee.phone}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-medium" style={{ color: '#071D2B' }}>{employee.role}</td>
+                    <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>PKR {employee.salary?.toLocaleString()}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold shadow-sm ${employee.status === 'active' ? 'bg-emerald-600 text-white' : 'bg-red-500 text-white'}`}>
+                        {employee.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                      <button 
+                        onClick={() => handleOpenEdit(employee)}
+                        className="inline-flex p-2 rounded-lg transition hover:bg-[#071D2B]/10 hover:scale-110" 
+                        style={{ color: '#0D324A' }} 
+                        title="Edit employee"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(employee.id)}
+                        className="inline-flex p-2 transition rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 hover:scale-110"
+                        title="Delete employee"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        
+        {/* Pagination Controls */}
+        {!loading && filteredEmployees.length > 0 && (
+          <div className="flex items-center justify-between gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border-t border-[#DCE2E6]">
+            <div className="text-[11px] sm:text-sm" style={{ color: '#63717C' }}>
+              Showing <span className="font-bold text-[#091C29]">{((currentPage - 1) * itemsPerPage) + 1}</span> to <span className="font-bold text-[#091C29]">{Math.min(currentPage * itemsPerPage, filteredEmployees.length)}</span> of <span className="font-bold text-[#091C29]">{filteredEmployees.length}</span>
+            </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="p-1 sm:p-2 rounded-lg border border-[#DCE2E6] bg-white text-[#071D2B] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+              <span className="flex items-center px-1 sm:px-2 text-[11px] sm:text-sm font-bold whitespace-nowrap" style={{ color: '#091C29' }}>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="p-1 sm:p-2 rounded-lg border border-[#DCE2E6] bg-white text-[#071D2B] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Add / Edit Employee Modal */}

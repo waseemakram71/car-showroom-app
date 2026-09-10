@@ -10,7 +10,7 @@ import InquiryTrendsChart from "./InquiryTrendsChart"
 function ChartCard({ children }) {
   return (
     <div
-      className="rounded-2xl p-5 border border-white/10 shadow-lg transition-all duration-300 hover:border-white/20 hover:shadow-xl"
+      className="rounded-2xl p-5 border border-white/10 shadow-lg transition-all duration-300 hover:border-white/20 hover:shadow-xl min-w-0 overflow-hidden relative"
       style={{
         background: "linear-gradient(145deg, #071D2B 0%, #0D324A 100%)",
         minHeight: "340px",
@@ -74,7 +74,7 @@ export default function DashboardCharts({ translations }) {
     <div className="mt-8">
       {/* Summary strip */}
       {!loading && data?.summary && (
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             {
               label: translations.totalCarsSold || "Total Cars Sold",

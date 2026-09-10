@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Pencil, Trash, X, Car } from 'lucide-react'
+import { Plus, Pencil, Trash, X, Car, Search, ChevronLeft, ChevronRight } from 'lucide-react'
+import FilterSelect from './FilterSelect'
 
 export default function CarPurchasesTable() {
   const router = useRouter()
@@ -14,6 +15,14 @@ export default function CarPurchasesTable() {
   const [editingPurchase, setEditingPurchase] = useState(null)
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState('')
+
+  // Filter & Pagination States
+  const [searchQuery, setSearchQuery] = useState('')
+  const [companyFilter, setCompanyFilter] = useState('all')
+  const [dateFilter, setDateFilter] = useState('all')
+  const [priceFilter, setPriceFilter] = useState('all')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
   useEffect(() => {
     async function fetchPurchases() {
@@ -111,84 +120,207 @@ export default function CarPurchasesTable() {
     }
   }
 
+  // Filter and Pagination Logic
+  const uniqueCompanies = ['all', ...Array.from(new Set(purchases.map(p => p.company))).filter(Boolean)]
+  const companyOptions = [
+    { value: 'all', label: 'All Companies' },
+    ...uniqueCompanies.filter(c => c !== 'all').map(c => ({ value: c, label: c }))
+  ]
+  const dateOptions = [
+    { value: 'all', label: 'All Dates' },
+    { value: 'today', label: 'Today' },
+    { value: 'this-month', label: 'This Month' },
+    { value: 'this-year', label: 'This Year' }
+  ]
+  const priceOptions = [
+    { value: 'all', label: 'All Prices' },
+    { value: 'under-1m', label: 'Under 1M' },
+    { value: '1m-5m', label: '1M - 5M' },
+    { value: '5m-10m', label: '5M - 10M' },
+    { value: 'above-10m', label: 'Above 10M' }
+  ]
+
+  const filteredPurchases = purchases.filter(purchase => {
+    // 1. Search
+    const matchesSearch = 
+      purchase.carModel?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      purchase.company?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      purchase.purchasedFrom?.toLowerCase().includes(searchQuery.toLowerCase());
+      
+    // 2. Company Filter
+    const matchesCompany = companyFilter === 'all' || purchase.company === companyFilter;
+    
+    // 3. Date Filter
+    let matchesDate = true;
+    if (dateFilter !== 'all' && purchase.purchaseDate) {
+      const pDate = new Date(purchase.purchaseDate);
+      const today = new Date();
+      if (dateFilter === 'today') {
+        matchesDate = pDate.toDateString() === today.toDateString();
+      } else if (dateFilter === 'this-month') {
+        matchesDate = pDate.getMonth() === today.getMonth() && pDate.getFullYear() === today.getFullYear();
+      } else if (dateFilter === 'this-year') {
+        matchesDate = pDate.getFullYear() === today.getFullYear();
+      }
+    }
+
+    // 4. Price Filter
+    let matchesPrice = true;
+    if (priceFilter !== 'all' && purchase.purchasePrice) {
+      const price = parseInt(purchase.purchasePrice);
+      if (priceFilter === 'under-1m') matchesPrice = price < 1000000;
+      else if (priceFilter === '1m-5m') matchesPrice = price >= 1000000 && price <= 5000000;
+      else if (priceFilter === '5m-10m') matchesPrice = price > 5000000 && price <= 10000000;
+      else if (priceFilter === 'above-10m') matchesPrice = price > 10000000;
+    }
+
+    return matchesSearch && matchesCompany && matchesDate && matchesPrice;
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredPurchases.length / itemsPerPage))
+  const paginatedPurchases = filteredPurchases.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, companyFilter, dateFilter, priceFilter])
+
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="font-display text-3xl font-bold" style={{ color: '#091C29' }}>Car Purchases</h1>
-        <button onClick={handleOpenAdd} className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition hover:shadow-lg hover:scale-[1.02]"
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#091C29' }}>Car Purchases</h1>
+        <button onClick={handleOpenAdd} className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition hover:shadow-lg hover:scale-[1.02] w-full sm:w-auto justify-center"
           style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}
         >
           <Plus className="h-4 w-4" /> Add Purchase Record
         </button>
       </div>
 
+      {/* Controls: Search & Filters */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <input 
+            type="text" 
+            placeholder="Search cars by model, company, or seller..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full rounded-2xl pl-11 pr-4 py-3 text-sm outline-none transition bg-white border border-[#DCE2E6] focus:border-[#0D324A] focus:ring-2 focus:ring-[#0D324A]/10 shadow-sm text-[#091C29]"
+          />
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto z-10 relative">
+          <FilterSelect value={companyFilter} onChange={setCompanyFilter} options={companyOptions} className="w-full sm:w-auto" minWidth="150px" />
+          <FilterSelect value={dateFilter} onChange={setDateFilter} options={dateOptions} className="w-full sm:w-auto" minWidth="140px" />
+          <FilterSelect value={priceFilter} onChange={setPriceFilter} options={priceOptions} className="w-full sm:w-auto" minWidth="140px" />
+        </div>
+      </div>
+
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #DCE2E6', boxShadow: '0 4px 12px rgba(7,29,43,0.06)' }}>
-        <table className="w-full text-left text-sm">
-          <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
-            <tr>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Car Model</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Company</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchase Price</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchase Date</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchased From</th>
-              <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm min-w-[800px]">
+            <thead style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)', color: '#FFFFFF' }}>
               <tr>
-                <td colSpan="6" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="h-4 w-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-                    Loading...
-                  </div>
-                </td>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Car Model</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Company</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchase Price</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchase Date</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Purchased From</th>
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs text-right">Actions</th>
               </tr>
-            ) : purchases.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No purchase records found.</td>
-              </tr>
-            ) : (
-              purchases.map(purchase => (
-                <tr key={purchase.id} className="transition hover:bg-gray-50" style={{ borderBottom: '1px solid #DCE2E6' }}>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full flex items-center justify-center text-white" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}>
-                        <Car className="h-5 w-5" />
+            </thead>
+            <tbody>
+              {loading ? (
+                [...Array(5)].map((_, i) => (
+                  <tr key={i} className="animate-pulse" style={{ borderBottom: '1px solid #DCE2E6' }}>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-xl bg-gray-200"></div>
+                        <div className="h-4 w-32 rounded bg-gray-200"></div>
                       </div>
-                      <div>
-                        <div className="font-bold text-base" style={{ color: '#091C29' }}>{purchase.carModel}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-medium" style={{ color: '#071D2B' }}>{purchase.company}</td>
-                  <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>PKR {parseInt(purchase.purchasePrice).toLocaleString()}</td>
-                  <td className="px-6 py-4" style={{ color: '#63717C' }}>
-                    {new Date(purchase.purchaseDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4" style={{ color: '#071D2B' }}>{purchase.purchasedFrom}</td>
-                  <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
-                    <button 
-                      onClick={() => handleOpenEdit(purchase)}
-                      className="inline-flex p-2 rounded-lg transition hover:bg-[#071D2B]/10 hover:scale-110" 
-                      style={{ color: '#0D324A' }} 
-                      title="Edit record"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(purchase.id)}
-                      className="inline-flex p-2 transition rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 hover:scale-110"
-                      title="Delete record"
-                    >
-                      <Trash className="h-4 w-4" />
-                    </button>
-                  </td>
+                    </td>
+                    <td className="px-6 py-4"><div className="h-4 w-24 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4"><div className="h-4 w-28 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4"><div className="h-4 w-24 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4"><div className="h-4 w-20 rounded bg-gray-200"></div></td>
+                    <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                      <div className="h-8 w-8 rounded-lg bg-gray-200"></div>
+                      <div className="h-8 w-8 rounded-lg bg-gray-200"></div>
+                    </td>
+                  </tr>
+                ))
+              ) : filteredPurchases.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="px-6 py-12 text-center" style={{ color: '#63717C' }}>No matching purchase records found.</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                paginatedPurchases.map(purchase => (
+                  <tr key={purchase.id} className="transition hover:bg-gray-50" style={{ borderBottom: '1px solid #DCE2E6' }}>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-full flex items-center justify-center text-white" style={{ background: 'linear-gradient(145deg, #071D2B 0%, #0D324A 100%)' }}>
+                          <Car className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-base" style={{ color: '#091C29' }}>{purchase.carModel}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-medium" style={{ color: '#071D2B' }}>{purchase.company}</td>
+                    <td className="px-6 py-4 font-bold" style={{ color: '#071D2B' }}>PKR {parseInt(purchase.purchasePrice).toLocaleString()}</td>
+                    <td className="px-6 py-4" style={{ color: '#63717C' }}>
+                      {new Date(purchase.purchaseDate).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4" style={{ color: '#071D2B' }}>{purchase.purchasedFrom}</td>
+                    <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
+                      <button 
+                        onClick={() => handleOpenEdit(purchase)}
+                        className="inline-flex p-2 rounded-lg transition hover:bg-[#071D2B]/10 hover:scale-110" 
+                        style={{ color: '#0D324A' }} 
+                        title="Edit record"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(purchase.id)}
+                        className="inline-flex p-2 transition rounded-lg hover:bg-red-50 text-red-400 hover:text-red-600 hover:scale-110"
+                        title="Delete record"
+                      >
+                        <Trash className="h-4 w-4" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pagination Controls */}
+        {!loading && filteredPurchases.length > 0 && (
+          <div className="flex items-center justify-between gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border-t border-[#DCE2E6]">
+            <div className="text-[11px] sm:text-sm" style={{ color: '#63717C' }}>
+              Showing <span className="font-bold text-[#091C29]">{((currentPage - 1) * itemsPerPage) + 1}</span> to <span className="font-bold text-[#091C29]">{Math.min(currentPage * itemsPerPage, filteredPurchases.length)}</span> of <span className="font-bold text-[#091C29]">{filteredPurchases.length}</span>
+            </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="p-1 sm:p-2 rounded-lg border border-[#DCE2E6] bg-white text-[#071D2B] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+              <span className="flex items-center px-1 sm:px-2 text-[11px] sm:text-sm font-bold whitespace-nowrap" style={{ color: '#091C29' }}>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="p-1 sm:p-2 rounded-lg border border-[#DCE2E6] bg-white text-[#071D2B] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Add / Edit Purchase Modal */}
